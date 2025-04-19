@@ -1,23 +1,18 @@
 {
-    "name": "codinghub",
-    "version": "1.0.0",
-    "description": "A modern code editor with authentication and project sharing",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-      "start": "npx vercel dev",
-      "serve": "http-server ./public -p 3000",
-      "install-global": "npm install -g http-server"
-    },
-    "dependencies": {
-      "mongodb": "^6.9.0",
-      "bcryptjs": "^2.4.3",
-      "jsonwebtoken": "^9.0.2"
-    },
-    "devDependencies": {
-      "http-server": "^14.1.1",
-      "vercel": "^37.4.2"
-    },
-    "author": "PeteZah",
-    "license": "ISC"
-  }
+  "name": "codinghub",
+  "version": "1.0.0",
+  "description": "A modern code editor with authentication and project sharing",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.4",
+    "mongodb": "^6.9.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "author": "PeteZah",
+  "license": "ISC"
+}
