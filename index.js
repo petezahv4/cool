@@ -12,10 +12,8 @@ const __dirname = path.dirname(__filename);
 // Middleware to parse JSON
 app.use(express.json());
 
-// Serve static files from /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Example API route
 app.get('/api/test', (req, res) => {
   res.json({ success: true, message: 'API route is working!' });
 });
