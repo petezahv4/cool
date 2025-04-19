@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodingHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+            color: #C9D1D9;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #238636 0%, #3B82F6 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #34D399, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .feature-card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        .modal {
+            background: #161B22;
+            backdrop-filter: blur(10px);
+            border: 1px solid #30363D;
+            transform: translate(-50%, -50%) scale(0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+        }
+        .btn-gradient {
+            background: linear-gradient(to right, #34D399, #3B82F6);
+            transition: transform 0.2s ease;
+        }
+        .btn-gradient:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-bg py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl md:text-7xl font-extrabold gradient-text mb-6">Welcome to CodingHub</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-8">Build, share, and deploy your code with a modern, powerful editor. Join our community of developers today!</p>
+            <div class="space-x-4">
+                <button id="signup-btn" class="btn-gradient text-white px-8 py-3 rounded-lg font-semibold shadow-md">Sign Up</button>
+                <button id="login-btn" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900">Log In</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why CodingHub?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Powerful Editor</h3>
+                    <p>Write HTML, CSS, and JavaScript with live previews, syntax highlighting, and resizable panes.</p>
+                </div>
+                <div class="feature-card p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Share & Deploy</h3>
+                    <p>Share your projects with a single link or deploy them to a custom URL for the world to see.</p>
+                </div>
+                <div class="feature-card p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Community Tips</h3>
+                    <p>Learn from expert tips on HTML, CSS, JavaScript, Node.js, Java, and Python.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 CodingHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Signup Modal -->
+    <div id="modal-overlay" class="modal-overlay fixed inset-0 hidden z-50"></div>
+    <div id="signup-modal" class="modal fixed top-1/2 left-1/2 p-6 rounded-lg max-w-md w-full hidden z-50">
+        <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
+        <div class="space-y-4">
+            <div>
+                <label class="block mb-1">Username</label>
+                <input id="signup-username" type="text" placeholder="e.g., coder123" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            </div>
+            <div>
+                <label class="block mb-1">Email</label>
+                <input id="signup-email" type="email" placeholder="e.g., user@example.com" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            </div>
+            <div>
+                <label class="block mb-1">Password</label>
+                <input id="signup-password" type="password" placeholder="Enter password" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            </div>
+            <div>
+                <label class="block mb-1">Bio (Optional)</label>
+                <textarea id="signup-bio" placeholder="Tell us about yourself..." class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
+            </div>
+        </div>
+        <div class="flex justify-end mt-6 space-x-2">
+            <button id="signup-submit" class="btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Sign Up</button>
+            <button id="signup-cancel" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal fixed top-1/2 left-1/2 p-6 rounded-lg max-w-md w-full hidden z-50">
+        <h2 class="text-2xl font-bold mb-4">Log In</h2>
+        <div class="space-y-4">
+            <div>
+                <label class="block mb-1">Email</label>
+                <input id="login-email" type="email" placeholder="e.g., user@example.com" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            </div>
+            <div>
+                <label class="block mb-1">Password</label>
+                <input id="login-password" type="password" placeholder="Enter password" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            </div>
+        </div>
+        <div class="flex justify-end mt-6 space-x-2">
+            <button id="login-submit" class="btn-gradient text-white px-4 py-2 rounded-lg font-semibold">Log In</button>
+            <button id="login-cancel" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const signupBtn = document.getElementById('signup-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const signupModal = document.getElementById('signup-modal');
+        const loginModal = document.getElementById('login-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const signupSubmit = document.getElementById('signup-submit');
+        const signupCancel = document.getElementById('signup-cancel');
+        const loginSubmit = document.getElementById('login-submit');
+        const loginCancel = document.getElementById('login-cancel');
+
+        function showModal(modal) {
+            modal.classList.remove('hidden');
+            modalOverlay.classList.remove('hidden');
+            modal.classList.add('show');
+            modalOverlay.classList.add('show');
+        }
+
+        function hideModal(modal) {
+            modal.classList.remove('show');
+            modalOverlay.classList.remove('show');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalOverlay.classList.add('hidden');
+            }, 300);
+        }
+
+        signupBtn.addEventListener('click', () => showModal(signupModal));
+        loginBtn.addEventListener('click', () => showModal(loginModal));
+        signupCancel.addEventListener('click', () => hideModal(signupModal));
+        loginCancel.addEventListener('click', () => hideModal(loginModal));
+        modalOverlay.addEventListener('click', () => {
+            hideModal(signupModal);
+            hideModal(loginModal);
+        });
+
+        signupSubmit.addEventListener('click', async () => {
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const bio = document.getElementById('signup-bio').value.trim();
+            if (!username || !email || !password) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            try {
+                const res = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, bio })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    hideModal(signupModal);
+                    window.location.href = '/editor';
+                } else {
+                    alert(data.error || 'Signup failed.');
+                }
+            } catch (e) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        loginSubmit.addEventListener('click', async () => {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    hideModal(loginModal);
+                    window.location.href = '/editor';
+                } else {
+                    alert(data.error || 'Login failed.');
+                }
+            } catch (e) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
